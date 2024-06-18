@@ -1,0 +1,66 @@
+{
+  "friends": {
+    "Joao": {
+      "latitude": -12.9714,
+      "longitude": -38.5014
+    },
+    "Pedro": {
+      "latitude": -12.9822,
+      "longitude": -38.4653
+    },
+    "Maria": {
+      "latitude": -12.9486,
+      "longitude": -38.3535
+    },
+    "Ana": {
+      "latitude": -12.925,
+      "longitude": -38.4192
+    },
+    "Carlos": {
+      "latitude": -12.9348,
+      "longitude": -38.5012
+    },
+    "Fernanda": {
+      "latitude": -12.9718,
+      "longitude": -38.4542
+    },
+    "Bruno": {
+      "latitude": -12.9734,
+      "longitude": -38.5042
+    },
+    "Renata": {
+      "latitude": -12.9777,
+      "longitude": -38.4894
+    },
+    "Luciana": {
+      "latitude": -12.9657,
+      "longitude": -38.5068
+    },
+    "Gustavo": {
+      "latitude": -12.976,
+      "longitude": -38.4916
+    }
+  },
+  "places_salvador": {
+    "Farol da Barra": {
+      "latitude": -13.009963388607554,
+      "longitude": -38.531819032750604
+    },
+    "Pelourinho": {
+      "latitude": -12.974525137273702,
+      "longitude": -38.509317280703655
+    },
+    "Elevador Lacerda": {
+      "latitude": -12.97427870584217,
+      "longitude": -38.513075017032
+    },
+    "Mercado Modelo": {
+      "latitude": -12.97292501336167,
+      "longitude": -38.51390701427033
+    },
+    "Basílica do Senhor do Bonfim": {
+      "latitude": -12.92347560498977,
+      "longitude": -38.508081602606175
+    }
+  }
+}

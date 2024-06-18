@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+osmnx
+networkx
+geopandas
+contextily
+matplotlib
+shapely
+pydantic
+scikit-learn
