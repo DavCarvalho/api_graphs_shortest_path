@@ -1,6 +1,6 @@
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request, Form
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse, FileResponse
+from fastapi.responses import JSONResponse, FileResponse, HTMLResponse
 from pydantic import BaseModel
 import osmnx as ox
 import networkx as nx
@@ -9,12 +9,23 @@ from shapely.geometry import LineString, Point
 import logging
 import json
 from plot_grafico import plot_route
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 
 # Define the logger object
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = FastAPI(title="API para achar o caminho mais curto", description="API para cálculo de rotas mais curta entre os destinos", version="1.0")
+
+# Allow CORS for frontend interaction
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Carregar dados de amigos e locais de um arquivo JSON
 with open('database.json', 'r') as f:
@@ -34,9 +45,22 @@ def get_friends():
 def get_places_salvador():
     return places_salvador
 
+# Serve static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Setup templates
+templates = Jinja2Templates(directory="templates")
+
+@app.get("/", response_class=HTMLResponse)
+def index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+
+
 @app.post("/shortest_path")
-def caminho_mais_curto(location: Location, destination: str = Query(..., description="Nome do amigo ou local")):
+def caminho_mais_curto(latitude: float = Form(...), longitude: float = Form(...), destination: str = Form(...)):
     try:
+        location = Location(latitude=latitude, longitude=longitude)
         # Combinar amigos e lugares em um único dicionário
         combined_locations = {**friends, **places_salvador}
 

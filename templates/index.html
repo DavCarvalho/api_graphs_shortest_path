@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shortest Path Finder</title>
+    <script src="https://unpkg.com/htmx.org@1.5.0/dist/htmx.min.js"></script>
+  </head>
+  <body>
+    <h1>Find the Shortest Path</h1>
+
+    <!-- Form to select a friend or place -->
+    <form
+      id="shortest-path-form"
+      hx-post="http://localhost:8000/shortest_path"
+      hx-target="#result"
+      hx-swap="innerHTML"
+    >
+      <label for="latitude">Your Latitude:</label>
+      <input type="text" id="latitude" name="latitude" required readonly />
+      <label for="longitude">Your Longitude:</label>
+      <input type="text" id="longitude" name="longitude" required readonly />
+
+      <label for="destination">Select a Destination:</label>
+      <select id="destination" name="destination" required>
+        <option value="" disabled selected>Select your option</option>
+        <!-- Options will be populated dynamically -->
+      </select>
+
+      <button type="submit">Find Path</button>
+    </form>
+
+    <div id="result">
+      <!-- The result will be displayed here -->
+    </div>
+
+    <script>
+      const apiUrl = "http://localhost:8000";
+
+      document.addEventListener("DOMContentLoaded", function () {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            function (position) {
+              document.getElementById("latitude").value =
+                position.coords.latitude;
+              document.getElementById("longitude").value =
+                position.coords.longitude;
+            },
+            function (error) {
+              console.error("Error getting location:", error);
+            }
+          );
+        } else {
+          console.error("Geolocation is not supported by this browser.");
+        }
+
+        fetch(`${apiUrl}/friends`)
+          .then((response) => response.json())
+          .then((data) => {
+            const select = document.getElementById("destination");
+            for (const friend in data) {
+              const option = document.createElement("option");
+              option.value = friend;
+              option.text = friend;
+              select.add(option);
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching friends:", error);
+          });
+
+        fetch(`${apiUrl}/places_salvador`)
+          .then((response) => response.json())
+          .then((data) => {
+            const select = document.getElementById("destination");
+            for (const place in data) {
+              const option = document.createElement("option");
+              option.value = place;
+              option.text = place;
+              select.add(option);
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching places:", error);
+          });
+      });
+    </script>
+  </body>
+</html>
