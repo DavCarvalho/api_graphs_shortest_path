@@ -32,6 +32,8 @@ def plot_route(G, shortest_path, location, dest_coords, destination):
     # Salvar o mapa em um arquivo HTML
     output_path_html = "static/route.html"
     m.save(output_path_html)
+    #output_path_html = "route.html"
+    #m.save(f"static/{output_path_html}")
 
     # Agora, também criar o gráfico com Matplotlib
     fig, ax = plt.subplots(figsize=(10, 10), dpi=100)
@@ -72,6 +74,8 @@ def plot_route(G, shortest_path, location, dest_coords, destination):
     # Salvar a imagem do caminho
     output_path_png = "static/route.png"
     plt.savefig(output_path_png)
+    #output_path_png = "route.png"
+    #plt.savefig(f"static/{output_path_png}")
     plt.close()
 
     return output_path_html, output_path_png

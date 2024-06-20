@@ -110,9 +110,12 @@ def caminho_mais_curto(latitude: float = Form(...), longitude: float = Form(...)
 
         # Plotar o gráfico e salvar a imagem
         output_path_html, output_path_png = plot_route(G, shortest_path, location, dest_coords, destination)
-
+        logger.info(f"Generated paths: HTML - {output_path_html}, PNG - {output_path_png}")
         # Retornar os caminhos das imagens como resposta
-        return {"html_path": output_path_html, "png_path": output_path_png}
+        return {
+           "html_path": f"/static/{output_path_html}",
+            "png_path": f"/static/{output_path_png}"
+        }
     
     except Exception as e:
         logger.error(f"Erro ao calcular o caminho mais curto: {e}")
