@@ -28,7 +28,7 @@ app.add_middleware(
 )
 
 # Carregar dados de amigos e locais de um arquivo JSON
-with open('database.json', 'r') as f:
+with open('database.json', 'r', encoding='utf-8') as f:
     data = json.load(f)
     friends = data["friends"]
     places_salvador = data["places_salvador"]
